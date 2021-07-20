@@ -4,13 +4,16 @@ import { useHistory } from "react-router-dom";
 const useState = React.useState;
 
 const Login = () => {
-  let [state, setState] = useState({ username: "", password: "" });
+  let [state, setState] = useState({
+    username: "",
+    password: "",
+  });
   let history = useHistory();
   let liveForm = async (event) => {
     event.preventDefault();
-    let soloToken = await loginPost();
-    saveToken(soloToken);
-    redirect();
+    let response = await loginPost();
+    saveToken(response.token);
+    redirect(response.role);
   };
   /*funcion para actualizar estado*/
   let updateState = (event) => {
@@ -28,8 +31,8 @@ const Login = () => {
   };
   /* funcion redireccionar*/
 
-  let redirect = () => {
-    history.push("/private");
+  let redirect = (role) => {
+    history.push(`/private/${role}`);
   };
 
   /*funcion login || No se toca */
@@ -50,20 +53,30 @@ const Login = () => {
       .then((result) => {
         return result;
       });
-    return responseFromPost.token;
+    return responseFromPost;
   };
 
   return (
-    <div>
+    <div className="login-box">
       <form onSubmit={liveForm}>
         <label>
           Username:
-          <input type="text" onChange={updateState} name="username" />
+          <input
+            type="text"
+            onChange={updateState}
+            name="username"
+            placeholder="username"
+          />
         </label>
         <br></br>
         <label>
           Password:
-          <input type="text" onChange={updateState} name="password" />
+          <input
+            type="text"
+            onChange={updateState}
+            name="password"
+            placeholder="password"
+          />
         </label>
         <br></br>
         <input type="submit" value="Submit" />
