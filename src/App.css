@@ -1,36 +1,110 @@
-/* .App {
-    text-align: center;
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+}
 
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  */
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* color: snow; */
+  color: black;
+}
+h1 {
+  font-size: 42px;
+}
+a {
+  text-decoration: none;
+  font-size: 24px;
+}
+.navbar a {
+  font-size: 20px;
+}
 
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  .navbar {
-    background-color: #282c34; 
-    min-height: 100px;
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    align-items: center;
-    justify-content: space-evenly;
-   
-  }
-  
-  .App-link {
-    color: #61dafb;
-    size: 30px;
-  }
-  
-  /* @keyframes App-logo-spin {
+.App-home {
+  background-color: red;
+}
+.App-window {
+  background-color: rgb(245, 245, 245);
+  height: 100vh;
+}
+.App-home-body {
+  background: linear-gradient(
+      to bottom,
+      transparent 20%,
+      rgb(245, 245, 245) 100%
+    ),
+    url("/src/files/header.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 300px;
+  text-align: center;
+}
+
+.home-log-sign {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block;
+  border-radius: 2%;
+  padding: 10px 10px 15px 10px;
+  top: 150px;
+}
+
+.login-log-sign{
+  background-color: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 50px 50px 50px 50px;
+  position: relative;
+  top: 300px;
+
+}
+
+label{
+  display: inline-block;
+  width: 250px;
+}
+
+.body-route {
+  background-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: inline-block;
+  top: 50px;
+  border-radius: 2%;
+}
+
+.table {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 60px;
+  width: 100%;
+  /* position: relative; */
+  text-align: center;
+}
+.navBar-link-box {
+  margin-top: 20px;
+  justify-content: space-around;
+  display: flex;
+  padding-top: 15px;
+}
+.App-link {
+  color: rgba(255, 255, 255, 0.897);
+  size: 30px;
+  /* z-index: 1; */
+}
+
+.bienvenida-private {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block;
+  border-radius: 1%;
+  padding: 10px 10px 10px 10px;
+  top: 160px;
+}
+
+/* @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);
     }
@@ -38,4 +112,3 @@
       transform: rotate(360deg);
     }
   } */
-   

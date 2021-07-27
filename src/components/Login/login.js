@@ -7,20 +7,28 @@ const Login = () => {
   let [state, setState] = useState({
     username: "",
     password: "",
+    message: "",
   });
   let history = useHistory();
+
   let liveForm = async (event) => {
     event.preventDefault();
     let response = await loginPost();
-    saveToken(response.token);
-    redirect(response.role);
+    console.log(response);
+    if (response.auth === true) {
+      saveToken(response.token);
+      redirect(response.role);
+    } else {
+      setState(
+        {message: response.message}
+      )
+    }
   };
   /*funcion para actualizar estado*/
   let updateState = (event) => {
     event.preventDefault();
     setState({
       ...state,
-      [event.target.name]: event.target.value,
       [event.target.name]: event.target.value,
     });
   };
@@ -57,30 +65,38 @@ const Login = () => {
   };
 
   return (
-    <div className="login-box">
-      <form onSubmit={liveForm}>
-        <label>
-          Username:
-          <input
-            type="text"
-            onChange={updateState}
-            name="username"
-            placeholder="username"
-          />
-        </label>
-        <br></br>
-        <label>
-          Password:
-          <input
-            type="text"
-            onChange={updateState}
-            name="password"
-            placeholder="password"
-          />
-        </label>
-        <br></br>
-        <input type="submit" value="Submit" />
-      </form>
+    <div className="App-window">
+      <div className="App-home-body">
+        <div className="login-log-sign">
+          <form onSubmit={liveForm}>
+            <label>
+              Username:
+              <input
+                type="text"
+                onChange={updateState}
+                name="username"
+                placeholder="username"
+              />
+            </label>
+            <br></br>
+            <label>
+              Password:
+              <input
+                type="text"
+                onChange={updateState}
+                name="password"
+                placeholder="password"
+              />
+            </label>
+            <br></br>
+            <input type="submit" value="Submit" className="loginbutton" />{" "}
+            <div>
+              <p>{state.message}</p>
+            </div>
+            {/*BOTON*/}
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

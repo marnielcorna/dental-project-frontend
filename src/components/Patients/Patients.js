@@ -1,12 +1,16 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import NavBarFx from "../navbar/navbar";
 
 const Patients = () => {
-  let [state, setState] = useState({ patients: [], loading: true });
+  let [state, setState] = useState({
+    patients: [],
+    loading: true,
+    auth: false,
+    
+  });
   let getPatients = async () => {
     let responseFromGet = await fetch("http://localhost:4000/user/patients", {
       method: "GET",
@@ -21,35 +25,57 @@ const Patients = () => {
         return result;
       });
 
-    setState({ patients: responseFromGet, loading: false });
+    setState({
+      patients: responseFromGet.patients,
+      loading: false,
+      auth: responseFromGet.auth,
+    });
   };
   useEffect(() => {
     getPatients();
   }, []);
-
   if (state.loading === true) {
     return <div>cargando..</div>;
   } else if (state.loading === false) {
-    return (
-      <div>
-        {console.log(state)}
-        <NavBarFx></NavBarFx>
-        <h1>Patients</h1>
-        <table>
-          <tbody>
-            {state.patients.map((patient) => {
-              return (
-                <tr key={patient._id}>
-                  <td>{patient.name}</td>
-                  <td>{patient.lastname}</td>
-                  <td>{patient.gender}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
+    if (state.auth === true) {
+      return (
+        <div className="App-window">
+          <div className="App-home-body">
+            <NavBarFx></NavBarFx>
+            <div className="body-route">
+              <h1 className="titulo">Patients</h1>
+              <Link to="/createpatient">Create a new patient</Link>
+              <table className="table table-patients">
+                <tbody className="table-body">
+                  {state.patients.map((patient) => {
+                    return (
+                      <tr key={patient._id}>
+                        <Link to={`/patient/${patient.identification}`}>{/*ESTO ES LO ULTIMO */}
+                          <td>{patient.name}</td>
+                          <td>{patient.lastname}</td>
+                          <td>{patient.gender}</td>
+                        </Link>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App-window">
+          <div className="App-home-body">
+            <div className="bienvenida-private">
+              <h1>No estas Autenticado</h1>
+              <Link to="/login">Log in here</Link>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 };
 

@@ -9,12 +9,15 @@ import Login from "./components/Login/login";
 import Private from "./components/private/private";
 import SignUp from "./components/Signup/signup";
 import Patients from "./components/Patients/Patients";
+import Logout from "./components/logout/logout";
+import CreateAndUpdate from "./components/createpatient/createandupdate";
+import SinglePatient from "./components/Patients/SinglePatient";
 
 
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
+      <div>
         <Switch>
           <Route className="homeRoute"
             exact
@@ -56,6 +59,28 @@ const App = () => {
           />
           <Route
             exact
+            path="/createpatient"
+            render={() => {
+              return <CreateAndUpdate route="create"></CreateAndUpdate>;
+            }}
+          />
+          <Route
+            exact
+            path="/updatepatient"
+            render={() => {
+              return <CreateAndUpdate route="update"></CreateAndUpdate>;
+            }}
+          />
+          <Route
+            exact
+            path="/patient/:patientId"
+            render={() => {
+              return <SinglePatient route="update"></SinglePatient>;
+            }}
+          />
+
+          <Route
+            exact
             path="/appointments"
             render={() => {
               return <Appointments></Appointments>;
@@ -68,8 +93,17 @@ const App = () => {
               return <Home></Home>;
             }}
           />
+          
+          <Route
+          exact
+          path="/logout"
+          render={() => {
+            window.localStorage.clear();
+            return <Login></Login>;
+          }}
+        />
         </Switch>
-      </header>
+      </div>
     </div>
   );
 };

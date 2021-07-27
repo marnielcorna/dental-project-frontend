@@ -1,30 +1,29 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
-import NavBarFx from "../navbar/navbar";/**/
-
-import { Link } from "react-router-dom";/**/
-
+import NavBarFx from "../navbar/navbar"; /**/
+import { Link } from "react-router-dom"; /**/
 
 const useEffect = React.useEffect;
 const useState = React.useState;
 
 const Private = () => {
   const { role } = useParams();
-  
+
   let [state, setState] = useState({
     username: "",
-    name:"",
+    name: "",
     role: role /*aqui se declaran */,
+    auth: false,
+    loaded: false,
   });
 
   let url = "";
-  if(state.role === "user"){
-    url="http://localhost:4000/user/home"
-  } else if(state.role==="administrator"){
-    url="http://localhost:4000/admin/home"
+  if (state.role === "user") {
+    url = "http://localhost:4000/user/home";
+  } else if (state.role === "administrator") {
+    console.log("ruta??");
+    url = "http://localhost:4000/admin/home";
   }
-
 
   let getUser = async () => {
     let responseFromGet = await fetch(url, {
@@ -40,38 +39,74 @@ const Private = () => {
         return result;
       });
     console.log(responseFromGet);
-    console.log(responseFromGet.name);
-    setState({
-      username: responseFromGet.username,
-      name: responseFromGet.name,
-      role: responseFromGet.role /*aqui se actualizan*/,
-    });
+    if (responseFromGet.auth === true) {
+      setState({
+        username: responseFromGet.user.username,
+        name: responseFromGet.user.name,
+        role: responseFromGet.user.role /*aqui se actualizan*/,
+        auth: true,
+        loaded: true,
+      });
+    } else if (responseFromGet.auth === false) {
+      setState({
+        ...state,
+        loaded: true,
+      });
+    }
+    window.localStorage.setItem("role", responseFromGet.user.role)
   };
   useEffect(() => {
     getUser();
   }, []);
-  if (state.username === "") {
-    return <div>loading...</div>;
-  } else if (state.role === "user") {
+  if (state.loaded === false) {
     return (
-      <div>
-        <NavBarFx></NavBarFx>
-        <div className="App-body">
-        <h1>Dental Clinic</h1>
-        <p>Welcome to your home {state.name}</p>
-        <Link to="/patients">link patients</Link>
-        <Link to="/appointments">link appointments</Link>
+      <div className="App-home-body">
+        <div>loading...</div>
+      </div>
+    );
+  } else if (state.loaded === true) {
+    if (state.auth === true) {
+      if (state.role === "user") {
+        return (
+          <div className="App-window">
+            <div className="App-home-body">
+              <NavBarFx></NavBarFx>
+              <div className="bienvenida-private">
+                <h1>Dental Clinic</h1>
+                <p>Welcome {state.name} take a look to your:</p>
+                <br></br>
+                <Link to="/patients">Patients</Link>
+                <br></br>
+                <Link to="/appointments">Appointments</Link>
+              </div>
+            </div>
+          </div>
+        );
+      } else if (state.role === "administrator") {
+        return (
+          <div className="App-window">
+            {console.log("recibiendo admin?")}
+            <div className="App-home-body">
+              <NavBarFx></NavBarFx>
+              <div className="bienvenida-private">
+                <h1>Dental Clinic</h1>
+                <p>Welcome to your home {state.name}</p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    } else if (state.auth === false) {
+      return (
+        <div className="App-window">
+          <div className="App-home-body">
+            <div className="bienvenida-private">
+            <h1>No estas Autenticado</h1>
+            </div>
+          </div>
         </div>
-      </div>
-    );
-  } else if (state.role === "administrator") {
-    return (
-      <div>
-        <NavBarFx></NavBarFx>
-        Dental Clinic
-        <p>Welcome to your home {state.name}</p>
-      </div>
-    );
+      );
+    }
   }
 };
 export default Private;
