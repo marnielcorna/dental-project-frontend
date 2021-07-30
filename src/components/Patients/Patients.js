@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import NavBarFx from "../navbar/navbar";
+import { useHistory } from "react-router-dom";
+import Loading from "../loading/loading";
 
 const Patients = () => {
   let [state, setState] = useState({
@@ -11,6 +13,11 @@ const Patients = () => {
     auth: false,
     
   });
+  let history = useHistory();
+  let viewPatient = () =>{
+    
+    history.push("/patient")
+  }
   let getPatients = async () => {
     let responseFromGet = await fetch("http://localhost:4000/user/patients", {
       method: "GET",
@@ -30,12 +37,13 @@ const Patients = () => {
       loading: false,
       auth: responseFromGet.auth,
     });
+    
   };
   useEffect(() => {
     getPatients();
   }, []);
   if (state.loading === true) {
-    return <div>cargando..</div>;
+    return <Loading/>;
   } else if (state.loading === false) {
     if (state.auth === true) {
       return (
@@ -48,13 +56,15 @@ const Patients = () => {
               <table className="table table-patients">
                 <tbody className="table-body">
                   {state.patients.map((patient) => {
+                   
                     return (
                       <tr key={patient._id}>
-                        <Link to={`/patient/${patient.identification}`}>{/*ESTO ES LO ULTIMO */}
+                        {/* <Link to={`/patient/${patient.identification}`}*/}
                           <td>{patient.name}</td>
                           <td>{patient.lastname}</td>
-                          <td>{patient.gender}</td>
-                        </Link>
+                          <td><Link to={`/patient/${patient._id}`}> Detail</Link></td>
+                          {console.log(patient._id)}
+                        {/*</Link>*/}
                       </tr>
                     );
                   })}

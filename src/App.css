@@ -40,6 +40,44 @@ a {
   text-align: center;
 }
 
+.loading {
+  font-size: 84px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-align: center;
+  animation: pulse 5s infinite;
+}
+@keyframes pulse {
+  0% {
+    background-color: rgba(233, 243, 243, 0.5);
+  }
+  100% {
+    background-color: rgba(92, 195, 182, 0.4);
+  }
+  
+}
+
+/* .compLoading {
+  background-color: burlywood;
+  -webkit-animation: pulsate 3s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.5;
+}
+@-webkit-keyframes compLoading {
+  0% { 
+      opacity: 0.5;
+  }
+  50% { 
+      opacity: 1.0;
+  }
+  100% { 
+      opacity: 0.5;
+  }
+} */
+.form{
+  display: flex;
+  flex-direction: column;
+}
 .home-log-sign {
   background-color: rgba(0, 0, 0, 0.2);
   position: relative;
@@ -49,16 +87,20 @@ a {
   top: 150px;
 }
 
-.login-log-sign{
+.login-log-sign {
   background-color: rgba(0, 0, 0, 0.2);
   display: inline-block;
   padding: 50px 50px 50px 50px;
   position: relative;
-  top: 300px;
-
+  border-radius: 2%;
+  top: 150px;
 }
 
-label{
+.loginbutton{
+  display: inline-block;
+}
+
+label {
   display: inline-block;
   width: 250px;
 }
@@ -101,7 +143,7 @@ label{
   display: inline-block;
   border-radius: 1%;
   padding: 10px 10px 10px 10px;
-  top: 160px;
+  top: 50px;
 }
 
 /* @keyframes App-logo-spin {

@@ -9,9 +9,9 @@ import Login from "./components/Login/login";
 import Private from "./components/private/private";
 import SignUp from "./components/Signup/signup";
 import Patients from "./components/Patients/Patients";
-import Logout from "./components/logout/logout";
 import CreateAndUpdate from "./components/createpatient/createandupdate";
-import SinglePatient from "./components/Patients/SinglePatient";
+import Patient from "./components/Patients/Patient";
+
 
 
 const App = () => {
@@ -59,6 +59,14 @@ const App = () => {
           />
           <Route
             exact
+            path="/patient/:patientId"/*REUSAR :patientId*/
+            render={() => {
+              return <Patient></Patient>;
+            }}
+            
+          />
+          <Route
+            exact
             path="/createpatient"
             render={() => {
               return <CreateAndUpdate route="create"></CreateAndUpdate>;
@@ -71,13 +79,7 @@ const App = () => {
               return <CreateAndUpdate route="update"></CreateAndUpdate>;
             }}
           />
-          <Route
-            exact
-            path="/patient/:patientId"
-            render={() => {
-              return <SinglePatient route="update"></SinglePatient>;
-            }}
-          />
+          
 
           <Route
             exact

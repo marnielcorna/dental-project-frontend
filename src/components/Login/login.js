@@ -68,7 +68,7 @@ const Login = () => {
     <div className="App-window">
       <div className="App-home-body">
         <div className="login-log-sign">
-          <form onSubmit={liveForm}>
+          <form onSubmit={liveForm} className="form">
             <label>
               Username:
               <input

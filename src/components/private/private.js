@@ -38,7 +38,7 @@ const Private = () => {
       .then((result) => {
         return result;
       });
-    console.log(responseFromGet);
+    
     if (responseFromGet.auth === true) {
       setState({
         username: responseFromGet.user.username,

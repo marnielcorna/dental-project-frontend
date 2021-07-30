@@ -70,7 +70,7 @@ const SignUp = () => {
     <div className="App-window">
       <div className="App-home-body">
         <div className="login-log-sign">
-          <form onSubmit={liveForm}>
+          <form onSubmit={liveForm} className="form">
             <label>
               Username:
               <input
@@ -93,12 +93,8 @@ const SignUp = () => {
             <br></br>
             <label>
               Role:
-              <input
-                type="text"
-                onChange={updateState}
-                name="role"
-                placeholder="insert <user> or <administrator>"
-              />
+              <input type="radio" id="userId" name="radio" value="user"/>
+              <input type="radio" id="administratorId" name="radio" value="administrator"></input>
             </label>
             <br></br>
             <input type="submit" value="Create" className="signUpButton" />{" "}
